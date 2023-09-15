@@ -570,6 +570,7 @@ impl CairoRunner {
                 &self.program.constants,
             )?;
             hint_processor.consume_step();
+            println!("Current n-steps: {:?}", hint_processor.get_n_steps());
         }
         println!("Ending n-steps: {:?}", hint_processor.get_n_steps());
 
