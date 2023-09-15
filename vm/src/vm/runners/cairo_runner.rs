@@ -567,9 +567,11 @@ impl CairoRunner {
                 hint_data,
                 &self.program.constants,
             )?;
-            hint_processor.consume_step();
+            // hint_processor.consume_step();
         }
 
+        println!("Ran until pc: {:?}", vm.run_context.pc);
+        println!("Address: {:?}", address);
         if vm.run_context.pc != address {
             return Err(VirtualMachineError::UnfinishedExecution);
         }
