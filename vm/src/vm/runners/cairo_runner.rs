@@ -551,6 +551,8 @@ impl CairoRunner {
         let hint_data = self.get_hint_data(references, hint_processor)?;
         #[cfg(feature = "hooks")]
         vm.execute_before_first_step(self, &hint_data)?;
+
+        println!("Starting n-steps: {:?}", hint_processor.get_n_steps());
         while vm.run_context.pc != address && !hint_processor.consumed() {
             let hint_data = &self
                 .program
@@ -567,8 +569,9 @@ impl CairoRunner {
                 hint_data,
                 &self.program.constants,
             )?;
-            // hint_processor.consume_step();
+            hint_processor.consume_step();
         }
+        println!("Ending n-steps: {:?}", hint_processor.get_n_steps());
 
         println!("Ran until pc: {:?}", vm.run_context.pc);
         println!("Address: {:?}", address);
